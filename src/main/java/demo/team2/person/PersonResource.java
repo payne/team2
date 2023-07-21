@@ -70,13 +70,8 @@ public class PersonResource {
     @PostMapping("/faker")
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Long> createFakePerson() {
-        Faker faker = new Faker();
-        String name = faker.name().fullName(); // Miss Samanta Schmidt
-        PersonDTO personDTO = new PersonDTO();
-        personDTO.setName(name);
-        personDTO.setPersonId(UUID.randomUUID().toString());
-        // personDTO.setPersonId(faker.idNumber().validSSN());
-        return new ResponseEntity<>(personService.create(personDTO), HttpStatus.CREATED);
+        PersonDTO fakePerson = personService.createFakePerson();
+        return new ResponseEntity<>(fakePerson.getId(), HttpStatus.CREATED);
     }
 
     @PostMapping

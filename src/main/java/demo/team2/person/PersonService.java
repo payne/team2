@@ -1,7 +1,9 @@
 package demo.team2.person;
 
+import com.github.javafaker.*;
 import demo.team2.model.SimplePage;
 import demo.team2.util.NotFoundException;
+import java.util.*;
 import demo.team2.util.WebUtils;
 import jakarta.transaction.Transactional;
 import java.util.stream.Collectors;
@@ -77,5 +79,15 @@ public class PersonService {
         }
         return null;
     }
-
+    public PersonDTO createFakePerson() {
+        Faker faker = new Faker();
+        String name = faker.name().fullName(); // Miss Samanta Schmidt
+        PersonDTO personDTO = new PersonDTO();
+        personDTO.setName(name);
+        personDTO.setPersonId(UUID.randomUUID().toString());
+        // personDTO.setPersonId(faker.idNumber().validSSN());
+        Long id = create(personDTO);
+        personDTO.setId(id);
+        return personDTO;
+    }
 }
