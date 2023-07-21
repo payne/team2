@@ -8,6 +8,9 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
+
+import java.util.UUID;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
@@ -71,7 +74,7 @@ public class PersonResource {
         String name = faker.name().fullName(); // Miss Samanta Schmidt
         PersonDTO personDTO = new PersonDTO();
         personDTO.setName(name);
-        //personDTO.setPersonId(faker.IdNumber());
+        personDTO.setPersonId(UUID.randomUUID().toString());
         return new ResponseEntity<>(personService.create(personDTO), HttpStatus.CREATED);
     }
 
