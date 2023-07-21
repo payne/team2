@@ -1,6 +1,7 @@
 package demo.team2.person;
 
 import demo.team2.model.SimplePage;
+import com.github.javafaker.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -61,6 +62,17 @@ public class PersonResource {
     @GetMapping("/{id}")
     public ResponseEntity<PersonDTO> getPerson(@PathVariable(name = "id") final Long id) {
         return ResponseEntity.ok(personService.get(id));
+    }
+
+    @PostMapping("/faker")
+    @ApiResponse(responseCode = "201")
+    public ResponseEntity<Long> createFakePerson() {
+        Faker faker = new Faker();
+        String name = faker.name().fullName(); // Miss Samanta Schmidt
+        PersonDTO personDTO = new PersonDTO();
+        personDTO.setName(name);
+        //personDTO.setPersonId(faker.IdNumber());
+        return new ResponseEntity<>(personService.create(personDTO), HttpStatus.CREATED);
     }
 
     @PostMapping
