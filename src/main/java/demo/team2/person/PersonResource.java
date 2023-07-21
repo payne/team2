@@ -75,6 +75,7 @@ public class PersonResource {
         PersonDTO personDTO = new PersonDTO();
         personDTO.setName(name);
         personDTO.setPersonId(UUID.randomUUID().toString());
+        // personDTO.setPersonId(faker.idNumber().validSSN());
         return new ResponseEntity<>(personService.create(personDTO), HttpStatus.CREATED);
     }
 
